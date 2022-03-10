@@ -1,10 +1,10 @@
 import mysql.connector
 
-mydb = mysql.connector.connect(host="localhost", user="root", passwd="admin12345", database="gitpod_db")
+mydb = mysql.connector.connect(host="localhost", user="root", passwd="", database="gitpod_db")
 
 mycursor = mydb.cursor()
 
-mycursor.execute("select * from contact")
+mycursor.execute("select * from Contact")
 
 result = mycursor.fetchall()
 
