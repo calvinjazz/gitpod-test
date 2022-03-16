@@ -1,4 +1,4 @@
 pandas
 numpy
 mysql-connector-python
-flask-mysqldb
+flask_mysqldb
