@@ -6,8 +6,9 @@ name = "pypi"
 [packages]
 pandas = "*"
 numpy = "*"
-mysql-connector-python = "*"
 flask = "*"
+flask-mysqldb = "*"
+pyyaml = "*"
 
 [dev-packages]
 
