@@ -67,6 +67,7 @@ def create():
 
 @app.route("/contacts/<int:id>/update", methods=("GET", "POST"))
 def update(id):
+    contact = id
     if request.method == "POST":
         contactDetails = request.form
         firstName = contactDetails['firstName']
@@ -81,7 +82,7 @@ def update(id):
         mysql.connection.commit()
         cur.close()
         return redirect('/contacts')
-    return render_template('update.html')
+    return render_template('update.html', contact=contact)
 
 
 @app.route('/contacts/<int:id>/delete', methods=['DELETE'])

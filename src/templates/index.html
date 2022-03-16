@@ -1,21 +1,14 @@
-
 {% for contact in contactDetails %}
-    <H1> {{contact['0']}} </H1>
+    <table border = 1>
+        <tr>
+            <td> {{contact[0]}} </td>
+            <td> {{contact[1]}} </td>
+            <td> {{contact[2]}} </td>
+            <td> {{contact[3]}} </td>
+            <td> {{contact[4]}} </td>
+            <td> {{contact[5]}} </td>
+            <td> {{contact[6]}} </td>
+        </tr>
+    </table>
+    <a class="action" href="{{ url_for('update', id=contact[0]) }}">Edit</a>
 {% endfor %}
-
-
-<!--
-<table border = 1>
-    {% for contact in contactDetails %}
-    <tr>
-        <td> {{contact[0]}} </td>
-        <td> {{contact[1]}} </td>
-        <td> {{contact[2]}} </td>
-        <td> {{contact[3]}} </td>
-        <td> {{contact[4]}} </td>
-        <td> {{contact[5]}} </td>
-        <td> {{contact[6]}} </td>
-    </tr>
-    {% endfor %}
-</table>
--->
