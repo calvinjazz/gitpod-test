@@ -1,4 +1,4 @@
 pandas
 numpy
 flask-mysqldb
-pyyaml
+pyyaml == 5.4.1

@@ -8,7 +8,7 @@ pandas = "*"
 numpy = "*"
 flask = "*"
 flask-mysqldb = "*"
-pyyaml = "*"
+pyyaml = "5.4.1"
 
 [dev-packages]
 
