@@ -2,3 +2,4 @@ pandas
 numpy
 mysql-connector-python
 flask-mysqldb
+pyyaml
