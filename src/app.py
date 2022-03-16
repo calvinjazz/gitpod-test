@@ -17,27 +17,6 @@ todos = [
     { "label": "My second task", "done": False }
 ]
 
-@app.route('/todos', methods=['GET'])
-def hello_world():
-    jsonified = jsonify(todos)
-
-    return jsonified
-
-@app.route('/todos', methods=['POST'])
-def add_new_todo():
-    request_body = request.get_json(force=True)
-    print("Incoming request with the following body", request_body)
-    todos.append(request_body)
-    jsonified = jsonify(todos)
-    return jsonified
-
-@app.route('/todos/<int:position>', methods=['DELETE'])
-def delete_todo(position):
-    print("This is the position to delete: ",position)
-    del todos[position]
-    jsonified = jsonify(todos)
-    return jsonified
-
 @app.route('/', methods=['GET'])
 def index():
     cur = mysql.connection.cursor()
@@ -62,7 +41,7 @@ def create():
         cur.execute("INSERT INTO Contact(contactId,firstName,lastName,email,age,salary,address) VALUES(%s, %s, %s, %s, %s, %s, %s)",(contactId,firstName,lastName,email,age,salary,address))
         mysql.connection.commit()
         cur.close()
-        return redirect('/contacts')
+        return redirect('/')
     return render_template('create.html')
 
 @app.route("/contacts/<int:id>/update", methods=("GET", "POST"))
@@ -81,17 +60,17 @@ def update(id):
         cur.execute("UPDATE Contact SET firstName = %s, lastName = %s, email = %s, age = %s, salary = %s, address = %s WHERE contactId = %s",(firstName,lastName,email,age,salary,address,id))
         mysql.connection.commit()
         cur.close()
-        return redirect('/contacts')
+        return redirect('/')
     return render_template('update.html', contact=contact)
 
 
-@app.route('/contacts/<int:id>/delete', methods=['DELETE'])
+@app.route('/contacts/<int:id>/delete', methods=['POST'])
 def delete_contact(id):
     cur = mysql.connection.cursor()
-    cur.execute("DELETE FROM Contact WHERE contactId = %s", (id))
+    cur.execute("DELETE FROM Contact WHERE contactId = %s", (id,))
     mysql.connection.commit()
     cur.close()
-    return redirect('/contacts')
+    return redirect('/')
 
 # These two lines should always be at the end of your app.py file.
 if __name__ == '__main__':
