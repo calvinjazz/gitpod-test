@@ -1,0 +1,19 @@
+<form method="POST" action="">
+    firstName <input type="text" name="firstName" />
+    <br>
+    lastName <input type="text" name="lastName" />
+    <br>
+    email <input type="text" name="email" />
+    <br>
+    age <input type="text" name="age" />
+    <br>
+    salary <input type="text" name="salary" />
+    <br>
+    address <input type="text" name="address" />
+    <br>
+    <input type="submit">
+</form>
+
+<form action="{{ url_for('app.delete', id=post['id']) }}" method="POST">
+    <input class="danger" type="submit" value="Delete" onclick="">
+</form>

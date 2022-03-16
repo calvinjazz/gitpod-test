@@ -38,8 +38,16 @@ def delete_todo(position):
     jsonified = jsonify(todos)
     return jsonified
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/', methods=['GET'])
 def index():
+    cur = mysql.connection.cursor()
+    resultValue = cur.execute("SELECT * FROM Contact")
+    if resultValue > 0:
+        contactDetails = cur.fetchall()
+        return render_template('index.html',contactDetails=contactDetails)
+
+@app.route('/create', methods=['GET', 'POST'])
+def create():
     if request.method == 'POST':
         # Fetch form data
         contactDetails = request.form
@@ -50,21 +58,39 @@ def index():
         age = contactDetails['age']
         salary = contactDetails['salary']
         address = contactDetails['address']
-        cur = mysql.connetion.cursor()
-        cur.execute("INSERT INTO Contact(contactId,firstName,lastName,email,age,salary,address) VALUES(%d, %s, %s, %s, %d, %d, %s)",(contactId,firstName,lastName,email,age,salary,address))
+        cur = mysql.connection.cursor()
+        cur.execute("INSERT INTO Contact(contactId,firstName,lastName,email,age,salary,address) VALUES(%s, %s, %s, %s, %s, %s, %s)",(contactId,firstName,lastName,email,age,salary,address))
         mysql.connection.commit()
         cur.close()
         return redirect('/contacts')
-    return render_template('index.html')
+    return render_template('create.html')
 
-@app.route('/contacts', methods=['GET'])
-def contacts():
+@app.route("/contacts/<int:id>/update", methods=("GET", "POST"))
+def update(id):
+    if request.method == "POST":
+        contactDetails = request.form
+        firstName = contactDetails['firstName']
+        lastName = contactDetails['lastName']
+        email = contactDetails['email']
+        age = contactDetails['age']
+        salary = contactDetails['salary']
+        address = contactDetails['address']
+
+        cur = mysql.connection.cursor()
+        cur.execute("UPDATE Contact SET firstName = %s, lastName = %s, email = %s, age = %s, salary = %s, address = %s WHERE contactId = %s",(firstName,lastName,email,age,salary,address,id))
+        mysql.connection.commit()
+        cur.close()
+        return redirect('/contacts')
+    return render_template('update.html')
+
+
+@app.route('/contacts/<int:id>/delete', methods=['DELETE'])
+def delete_contact(id):
     cur = mysql.connection.cursor()
-    resultValue = cur.execute("SELECT * FROM contacts")
-    if resultValue > 0:
-        contactDetails = cur.fetchall()
-        return render_template('contacts.html',contactDetails=contactDetails)
-
+    cur.execute("DELETE FROM Contact WHERE contactId = %s", (id))
+    mysql.connection.commit()
+    cur.close()
+    return redirect('/contacts')
 
 # These two lines should always be at the end of your app.py file.
 if __name__ == '__main__':

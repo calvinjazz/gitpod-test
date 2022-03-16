@@ -1,17 +1,21 @@
-<form method="POST" action="">
-    contactId <input type="text" name="contactId" />
-    <br>
-    firstName <input type="text" name="firstName" />
-    <br>
-    lastName <input type="text" name="lastName" />
-    <br>
-    email <input type="text" name="email" />
-    <br>
-    age <input type="text" name="age" />
-    <br>
-    salary <input type="text" name="salary" />
-    <br>
-    address <input type="text" name="address" />
-    <br>
-    <input type="submit">
-</form>
+
+{% for contact in contactDetails %}
+    <H1> {{contact['0']}} </H1>
+{% endfor %}
+
+
+<!--
+<table border = 1>
+    {% for contact in contactDetails %}
+    <tr>
+        <td> {{contact[0]}} </td>
+        <td> {{contact[1]}} </td>
+        <td> {{contact[2]}} </td>
+        <td> {{contact[3]}} </td>
+        <td> {{contact[4]}} </td>
+        <td> {{contact[5]}} </td>
+        <td> {{contact[6]}} </td>
+    </tr>
+    {% endfor %}
+</table>
+-->
