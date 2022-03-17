@@ -12,11 +12,6 @@ app.config['MYSQL_DB'] = db['mysql_db']
 
 mysql = MySQL(app)
 
-todos = [
-    { "label": "My first task", "done": False },
-    { "label": "My second task", "done": False }
-]
-
 @app.route('/', methods=['GET'])
 def index():
     cur = mysql.connection.cursor()
